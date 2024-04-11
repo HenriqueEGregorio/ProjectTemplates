@@ -23,6 +23,13 @@ namespace TemplateApi.WebApplication.Controllers
             _exampleEntityService = exampleEntityService;
         }
 
+        /// <summary>
+        /// Busca por Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// Retorna uma entidade
+        /// </returns>
         [HttpGet]
         [Route("{id}")]
         public async Task<GetExampleEntityResponseModel?> GetByIdAsync(Guid id)
