@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageType>Template</PackageType>
+		<PackageVersion>1.0.0.0</PackageVersion>
+		<PackageId>Nzs.Templates</PackageId>
+		<Title>Nzs Templates</Title>
+		<Authors>Hen-_-EG</Authors>
+		<Description>Templates para a criação de aplicações.</Description>
+		<PackageTags>dotnet-new;templates;Nzs</PackageTags>
+		<TargetFramework>net8.0</TargetFramework>
+
+		<IncludeContentInPack>true</IncludeContentInPack>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<ContentTargetFolders>content</ContentTargetFolders>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="Templates\**\*" Exclude="Templates\**\bin\**;Templates\**\obj\**" />
+		<Compile Remove="**\*" />
+	</ItemGroup>
+
+</Project>
+
+<!-- 
+Hen-_-EG
+-->
