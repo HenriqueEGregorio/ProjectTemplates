@@ -1,6 +1,6 @@
-﻿namespace TemplateApi.WebApplication.Models.Get
+﻿namespace TemplateApi.Service.Models.Put.Request
 {
-    public class GetExampleEntityResponseModel
+    public class PutRangeExampleEntityRequestModel
     {
         public Guid Id { get; set; }
         public long Sequence { get; set; }

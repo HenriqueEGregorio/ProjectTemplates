@@ -2,12 +2,14 @@ using TemplateApi.Infrastructure.Data;
 using TemplateApi.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using TemplateApi.Service.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<Context>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddCustom400ErrorMessages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen( x => 
 {

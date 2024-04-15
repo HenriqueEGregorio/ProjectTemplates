@@ -1,6 +1,6 @@
-﻿namespace TemplateApi.WebApplication.Models.Put.Request
+﻿namespace TemplateApi.Service.Models.Delete
 {
-    public class PutRangeExampleEntityRequestModel
+    public class DeleteExapleEntityRequestModel
     {
         public Guid Id { get; set; }
         public long Sequence { get; set; }

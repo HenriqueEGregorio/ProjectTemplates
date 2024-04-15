@@ -1,6 +1,6 @@
-﻿namespace TemplateApi.WebApplication.Models.Delete
+﻿namespace TemplateApi.Service.Models.Get
 {
-    public class DeleteExapleEntityRequestModel
+    public class GetExampleEntityResponseModel
     {
         public Guid Id { get; set; }
         public long Sequence { get; set; }

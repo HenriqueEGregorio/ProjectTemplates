@@ -1,4 +1,4 @@
-﻿namespace TemplateApi.WebApplication.Models.Post.Request
+﻿namespace TemplateApi.Service.Models.Post.Request
 {
     public class PostExampleEntityRequestModel
     {

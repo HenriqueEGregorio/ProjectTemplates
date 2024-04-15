@@ -1,4 +1,4 @@
-﻿namespace TemplateApi.WebApplication.Models.Put.Request
+﻿namespace TemplateApi.Service.Models.Put.Request
 {
     public class PutExampleEntityRequestModel
     {

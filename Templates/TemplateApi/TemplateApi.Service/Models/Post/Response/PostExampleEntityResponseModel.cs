@@ -1,4 +1,4 @@
-﻿namespace TemplateApi.WebApplication.Models.Post.Response
+﻿namespace TemplateApi.Service.Models.Post.Response
 {
     public class PostExampleEntityResponseModel
     {

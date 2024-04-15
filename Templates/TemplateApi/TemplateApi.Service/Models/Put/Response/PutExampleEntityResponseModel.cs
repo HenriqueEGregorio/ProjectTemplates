@@ -1,4 +1,4 @@
-﻿namespace TemplateApi.WebApplication.Models.Put.Response
+﻿namespace TemplateApi.Service.Models.Put.Response
 {
     public class PutExampleEntityResponseModel
     {

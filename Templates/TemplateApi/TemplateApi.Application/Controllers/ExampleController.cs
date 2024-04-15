@@ -4,11 +4,11 @@ using TemplateApi.Domain.Entities;
 using TemplateApi.Domain.Filters;
 using TemplateApi.Domain.Interfaces.Services;
 using TemplateApi.Domain.Pagination;
-using TemplateApi.WebApplication.Models.Delete;
-using TemplateApi.WebApplication.Models.Get;
-using TemplateApi.WebApplication.Models.Post.Request;
-using TemplateApi.WebApplication.Models.Post.Response;
-using TemplateApi.WebApplication.Models.Put.Request;
+using TemplateApi.Service.Models.Delete;
+using TemplateApi.Service.Models.Get;
+using TemplateApi.Service.Models.Post.Request;
+using TemplateApi.Service.Models.Post.Response;
+using TemplateApi.Service.Models.Put.Request;
 
 namespace TemplateApi.WebApplication.Controllers
 {
