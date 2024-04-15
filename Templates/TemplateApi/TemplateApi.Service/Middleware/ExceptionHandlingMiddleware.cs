@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Net;
+using System.Text.Json;
 using TemplateApi.Domain.Exceptions;
 
 namespace TemplateApi.Service.Middleware
@@ -26,20 +28,21 @@ namespace TemplateApi.Service.Middleware
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var errorResponse = new ErrorResponse()
-            {
-                Message = exception.Message
-            };
+            var errorResponse = new CustomError(
+                statusCode: HttpStatusCode.InternalServerError
+                , detail: exception.Message);
 
             if (exception is HttpException httpException)
             {
-                errorResponse.StatusCode = httpException.StatusCode;
-                errorResponse.Errors = httpException.Errors;
+                errorResponse = new CustomError(
+                    statusCode: httpException.StatusCode
+                    , detail: exception.Message
+                    , errors: httpException.Errors);
             }
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)errorResponse.StatusCode;
-            await context.Response.WriteAsync(errorResponse.ToJsonString());
+            context.Response.StatusCode = errorResponse.Status ?? 500;
+            await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
         }
     }
 }
