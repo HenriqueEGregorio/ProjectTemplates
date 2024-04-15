@@ -109,6 +109,7 @@ namespace TemplateApi.WebApplication.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task PutAsync(Guid id ,[FromBody] PutExampleEntityRequestModel model)
         {
+            throw new Exception();
             var entity = model.Adapt<ExampleEntity>();
             await _exampleEntityService.UpdateAsync(id ,entity);
         }
