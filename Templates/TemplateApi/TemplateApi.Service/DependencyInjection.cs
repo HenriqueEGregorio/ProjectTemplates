@@ -23,11 +23,11 @@ namespace TemplateApi.Service
             services.AddScoped<IExampleEntityRepository, ExampleEntityRepository>();
             #endregion
 
-            #region
+            #region Validator
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssemblyContaining<ExampleValidator>();
-
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pt-br");
+
+            services.AddValidatorsFromAssemblyContaining<ExamplePostValidator>();
             #endregion
 
             return services;
