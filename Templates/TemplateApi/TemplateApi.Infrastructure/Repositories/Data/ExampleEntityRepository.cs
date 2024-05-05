@@ -5,7 +5,7 @@ using TemplateApi.Infrastructure.Repositories.Generics;
 
 namespace TemplateApi.Infrastructure.Repositories.Data
 {
-    public class ExampleEntityRepository : EntityGenericRepository<ExampleEntity>, IExampleEntityRepository
+    public class ExampleEntityRepository : EntityCrudGenericRepository<ExampleEntity>, IExampleEntityRepository
     {
         public ExampleEntityRepository(Context context) : base(context)
         {

@@ -17,7 +17,7 @@ namespace TemplateApi.Service.Services
 
         public async Task<ExampleEntity?> GetByIdAsync(Guid id)
         {
-            var result = await _exampleEntityRepository.GetById(id);
+            var result = await _exampleEntityRepository.GetByIdAsync(id);
             return result;
         }
 

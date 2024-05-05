@@ -1,12 +1,11 @@
-﻿using System.Linq.Expressions;
-using TemplateApi.Domain.Interfaces.Filters;
+﻿using TemplateApi.Domain.Interfaces.Filters;
 using TemplateApi.Domain.Pagination;
 
 namespace TemplateApi.Domain.Interfaces.Repository.Generics
 {
-    public interface IEntityGenericRepository<T> : IDisposable where T : class , IDefaultEntity 
+    public interface IGenericRepository<T> : IDisposable where T : class , IDefaultEntity 
     {
-        Task<T?> GetById(Guid id);
+        Task<T?> GetByIdAsync(Guid id);
         Task<IEnumerable<T>> GetAsync();
         Task<IPagination<T>> GetPaginatedAsync(IDefaultFilter filter);
         Task<T> AddAsync(T entity);

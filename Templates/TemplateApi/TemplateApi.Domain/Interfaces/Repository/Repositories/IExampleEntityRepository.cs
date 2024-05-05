@@ -3,7 +3,7 @@ using TemplateApi.Domain.Interfaces.Repository.Generics;
 
 namespace TemplateApi.Domain.Interfaces.Repository.Repositories
 {
-    public interface IExampleEntityRepository : IEntityDefaultRepository<ExampleEntity>
+    public interface IExampleEntityRepository : IDefaultRepository<ExampleEntity>
     {
     }
 }

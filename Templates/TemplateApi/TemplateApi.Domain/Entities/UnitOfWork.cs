@@ -12,7 +12,6 @@ namespace TemplateApi.Domain.Entities
         public IDbConnection GetDbConnection => dbConn;
         public IDbTransaction? GetDbTransaction => dbTransaction;
 
-
         public void Dispose()
         {
             DisposeTransaction();
@@ -39,7 +38,7 @@ namespace TemplateApi.Domain.Entities
         }
 
         public void Rollback()
-        {
+        {   
             dbTransaction?.Rollback();
         }
 

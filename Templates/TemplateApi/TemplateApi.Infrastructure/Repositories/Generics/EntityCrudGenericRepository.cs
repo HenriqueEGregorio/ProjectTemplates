@@ -7,17 +7,17 @@ using TemplateApi.Infrastructure.Data;
 
 namespace TemplateApi.Infrastructure.Repositories.Generics
 {
-    public class EntityGenericRepository<T> : IEntityGenericRepository<T> where T : class, IDefaultEntity
+    public class EntityCrudGenericRepository<T> : IGenericRepository<T> where T : class, IDefaultEntity
     {
         private bool _disposed = false;
         private readonly Context _context;
 
-        public EntityGenericRepository(Context context)
+        public EntityCrudGenericRepository(Context context)
         {
             _context = context;
         }
 
-        public async Task<T?> GetById(Guid id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             var query = _context.Set<T>().AsQueryable();
 
@@ -61,7 +61,7 @@ namespace TemplateApi.Infrastructure.Repositories.Generics
 
         public async Task UpdateAsync(Guid id, T entity)
         {
-            var existingEntity = await GetById(id);
+            var existingEntity = await GetByIdAsync(id);
             
             if (existingEntity != null)
             {
@@ -83,7 +83,7 @@ namespace TemplateApi.Infrastructure.Repositories.Generics
 
         public async Task RemoveAsync(Guid id)
         {
-            var existingEntity = await GetById(id);
+            var existingEntity = await GetByIdAsync(id);
 
             if (existingEntity != null)
             {
