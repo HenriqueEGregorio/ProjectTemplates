@@ -8,7 +8,6 @@ namespace TemplateApi.Service.Extensions
         public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
             return app;
         }
     }

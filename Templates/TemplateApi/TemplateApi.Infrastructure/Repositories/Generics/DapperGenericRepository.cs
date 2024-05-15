@@ -17,7 +17,17 @@ namespace TemplateApi.Infrastructure.Repositories.Generics
 
         public void Dispose()
         {
+            Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _dbConn?.Close();
+                _dbConn?.Dispose();
+            }
         }
 
         public virtual string GetQueryBase(IDefaultFilter filter)

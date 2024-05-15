@@ -9,6 +9,7 @@ namespace TemplateApi.Service.Services
     public class ExampleEntityService : IExampleEntityService
     {
         private readonly IExampleEntityRepository _exampleEntityRepository;
+
         public ExampleEntityService(
             IExampleEntityRepository exampleEntityRepository)
         {

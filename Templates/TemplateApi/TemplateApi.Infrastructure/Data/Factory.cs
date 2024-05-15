@@ -7,16 +7,16 @@ namespace TemplateApi.Infrastructure.Data
 {
     public  class Factory : IFactory
     {
-        private IDbConnection _connection;
-        private Settings dataSettings;
+        private readonly IDbConnection _connection;
+        private readonly Settings _dataSettings;
 
-        protected string ConnectionString => dataSettings.Default;
+        protected string ConnectionString => _dataSettings.Default;
 
         public IDbConnection GetDbConnection => _connection;
 
         public Factory(IOptions<Settings> dataSettings)
         {
-            this.dataSettings = dataSettings.Value;
+            _dataSettings = dataSettings.Value;
             _connection = new NpgsqlConnection(ConnectionString);
         }
     }
