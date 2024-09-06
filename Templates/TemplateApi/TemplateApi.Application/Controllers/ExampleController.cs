@@ -9,7 +9,6 @@ using TemplateApi.Service.Models.Get;
 using TemplateApi.Service.Models.Post.Request;
 using TemplateApi.Service.Models.Post.Response;
 using TemplateApi.Service.Models.Put.Request;
-using TemplateApi.Service.Validators;
 
 namespace TemplateApi.WebApplication.Controllers
 {
