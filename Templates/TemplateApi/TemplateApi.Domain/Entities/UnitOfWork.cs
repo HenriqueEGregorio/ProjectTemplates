@@ -2,49 +2,48 @@
 using TemplateApi.Domain.Interfaces;
 using TemplateApi.Domain.Interfaces.Data;
 
-namespace TemplateApi.Domain.Entities
+namespace TemplateApi.Domain.Entities;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly IDbConnection dbConn;
+    private IDbTransaction? dbTransaction;
+
+    public IDbConnection GetDbConnection => dbConn;
+    public IDbTransaction? GetDbTransaction => dbTransaction;
+
+    public void Dispose()
     {
-        private readonly IDbConnection dbConn;
-        private IDbTransaction? dbTransaction;
+        DisposeTransaction();
+        dbConn?.Close();
+        dbConn?.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
-        public IDbConnection GetDbConnection => dbConn;
-        public IDbTransaction? GetDbTransaction => dbTransaction;
+    public UnitOfWork(IFactory databaseOptions)
+    {
+        dbConn = databaseOptions.GetDbConnection;
+        if (dbConn.State != ConnectionState.Open)
+            dbConn.Open();
+    }
 
-        public void Dispose()
-        {
-            DisposeTransaction();
-            dbConn?.Close();
-            dbConn?.Dispose();
-            GC.SuppressFinalize(this);
-        }
+    public void BeginTransaction()
+    {
+        dbTransaction = dbConn.BeginTransaction();
+    }
 
-        public UnitOfWork(IFactory databaseOptions)
-        {
-            dbConn = databaseOptions.GetDbConnection;
-            if (dbConn.State != ConnectionState.Open)
-                dbConn.Open();
-        }
+    public void Commit()
+    {
+        dbTransaction?.Commit();
+    }
 
-        public void BeginTransaction()
-        {
-            dbTransaction = dbConn.BeginTransaction();
-        }
+    public void Rollback()
+    {   
+        dbTransaction?.Rollback();
+    }
 
-        public void Commit()
-        {
-            dbTransaction?.Commit();
-        }
-
-        public void Rollback()
-        {   
-            dbTransaction?.Rollback();
-        }
-
-        public void DisposeTransaction()
-        {
-            dbTransaction?.Dispose();
-        }
+    public void DisposeTransaction()
+    {
+        dbTransaction?.Dispose();
     }
 }

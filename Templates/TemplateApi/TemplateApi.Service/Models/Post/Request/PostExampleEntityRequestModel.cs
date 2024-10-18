@@ -1,8 +1,7 @@
-﻿namespace TemplateApi.Service.Models.Post.Request
+﻿namespace TemplateApi.Service.Models.Post.Request;
+
+public class PostExampleEntityRequestModel
 {
-    public class PostExampleEntityRequestModel
-    {
-        public required string Name { get; set; }
-        public int Age { get; set; }
-    }
+    public required string Name { get; set; }
+    public int Age { get; set; }
 }

@@ -1,7 +1,6 @@
-﻿namespace TemplateApi.Domain.Interfaces.Data
+﻿namespace TemplateApi.Domain.Interfaces.Data;
+
+public interface ISettings
 {
-    public interface ISettings
-    {
-        public string Default { get; set; }
-    }
+    public string Default { get; set; }
 }

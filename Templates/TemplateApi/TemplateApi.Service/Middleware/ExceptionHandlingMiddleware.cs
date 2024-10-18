@@ -3,46 +3,45 @@ using System.Net;
 using System.Text.Json;
 using TemplateApi.Domain.Exceptions;
 
-namespace TemplateApi.Service.Middleware
+namespace TemplateApi.Service.Middleware;
+
+public class ExceptionHandlingMiddleware
 {
-    public class ExceptionHandlingMiddleware
+    private readonly RequestDelegate _next;
+
+    public ExceptionHandlingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+    public async Task InvokeAsync(HttpContext httpContext)
+    {
+        try
         {
-            _next = next;
+            await _next(httpContext);
+        }
+        catch (Exception exception)
+        {
+            await HandleExceptionAsync(httpContext, exception);
+        }
+    }
+
+    private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        var errorResponse = new CustomError(
+            statusCode: HttpStatusCode.InternalServerError
+            , detail: exception.Message);
+
+        if (exception is HttpException httpException)
+        {
+            errorResponse = new CustomError(
+                statusCode: httpException.StatusCode
+                , detail: exception.Message
+                , errors: httpException.Errors);
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
-        {
-            try
-            {
-                await _next(httpContext);
-            }
-            catch (Exception exception)
-            {
-                await HandleExceptionAsync(httpContext, exception);
-            }
-        }
-
-        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            var errorResponse = new CustomError(
-                statusCode: HttpStatusCode.InternalServerError
-                , detail: exception.Message);
-
-            if (exception is HttpException httpException)
-            {
-                errorResponse = new CustomError(
-                    statusCode: httpException.StatusCode
-                    , detail: exception.Message
-                    , errors: httpException.Errors);
-            }
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = errorResponse.Status ?? 500;
-            await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-        }
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = errorResponse.Status ?? 500;
+        await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
     }
 }

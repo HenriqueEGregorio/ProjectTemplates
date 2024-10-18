@@ -1,12 +1,11 @@
 ﻿using TemplateApi.Domain.Interfaces;
 
-namespace TemplateApi.Domain.Entities
+namespace TemplateApi.Domain.Entities;
+
+public class DefaultEntity : IDefaultEntity
 {
-    public class DefaultEntity : IDefaultEntity
-    {
-        public Guid Id { get; set; }
-        public long Sequence { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public DateTime CreationDate { get; set; }
-    }
+    public Guid Id { get; set; }
+    public long Sequence { get; set; }
+    public DateTime UpdateDate { get; set; }
+    public DateTime CreationDate { get; set; }
 }

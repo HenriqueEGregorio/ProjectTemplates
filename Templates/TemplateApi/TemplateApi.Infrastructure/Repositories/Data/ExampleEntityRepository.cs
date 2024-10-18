@@ -3,12 +3,11 @@ using TemplateApi.Domain.Interfaces.Repository.Repositories;
 using TemplateApi.Infrastructure.Data;
 using TemplateApi.Infrastructure.Repositories.Generics;
 
-namespace TemplateApi.Infrastructure.Repositories.Data
+namespace TemplateApi.Infrastructure.Repositories.Data;
+
+public class ExampleEntityRepository : EntityCrudGenericRepository<ExampleEntity>, IExampleEntityRepository
 {
-    public class ExampleEntityRepository : EntityCrudGenericRepository<ExampleEntity>, IExampleEntityRepository
+    public ExampleEntityRepository(Context context) : base(context)
     {
-        public ExampleEntityRepository(Context context) : base(context)
-        {
-        }
     }
 }

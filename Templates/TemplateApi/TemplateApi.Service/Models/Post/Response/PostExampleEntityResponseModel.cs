@@ -1,7 +1,6 @@
-﻿namespace TemplateApi.Service.Models.Post.Response
+﻿namespace TemplateApi.Service.Models.Post.Response;
+
+public class PostExampleEntityResponseModel
 {
-    public class PostExampleEntityResponseModel
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

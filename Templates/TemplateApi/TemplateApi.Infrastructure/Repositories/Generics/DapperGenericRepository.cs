@@ -2,37 +2,36 @@
 using TemplateApi.Domain.Interfaces;
 using TemplateApi.Domain.Interfaces.Filters;
 
-namespace TemplateApi.Infrastructure.Repositories.Generics
+namespace TemplateApi.Infrastructure.Repositories.Generics;
+
+public class DapperGenericRepository : IDisposable
 {
-    public class DapperGenericRepository : IDisposable
+    protected readonly IUnitOfWork _unitOfWork;
+    protected readonly IDbConnection _dbConn;
+
+    protected DapperGenericRepository(IUnitOfWork unitOfWork)
     {
-        protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IDbConnection _dbConn;
+        this._unitOfWork = unitOfWork;
+        _dbConn = unitOfWork.GetDbConnection;
+    }
 
-        protected DapperGenericRepository(IUnitOfWork unitOfWork)
-        {
-            this._unitOfWork = unitOfWork;
-            _dbConn = unitOfWork.GetDbConnection;
-        }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        public void Dispose()
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            _dbConn?.Close();
+            _dbConn?.Dispose();
         }
+    }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _dbConn?.Close();
-                _dbConn?.Dispose();
-            }
-        }
-
-        public virtual string GetQueryBase(IDefaultFilter filter)
-        {
-            return string.Empty;
-        }
+    public virtual string GetQueryBase(IDefaultFilter filter)
+    {
+        return string.Empty;
     }
 }

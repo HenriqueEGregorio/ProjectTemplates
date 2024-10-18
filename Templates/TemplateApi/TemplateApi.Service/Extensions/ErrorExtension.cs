@@ -3,50 +3,49 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using TemplateApi.Domain.Exceptions;
 
-namespace TemplateApi.Service.Extensions
+namespace TemplateApi.Service.Extensions;
+
+public static class ErrorExtension
 {
-    public static class ErrorExtension
+    public static IMvcBuilder AddCustom400ErrorMessages(this IMvcBuilder builder)
     {
-        public static IMvcBuilder AddCustom400ErrorMessages(this IMvcBuilder builder)
+        builder.ConfigureApiBehaviorOptions(options =>
         {
-            builder.ConfigureApiBehaviorOptions(options =>
+            options.InvalidModelStateResponseFactory = actionContext =>
             {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    return new BadRequestObjectResult(actionContext.ConstructErrorMessages());
-                };
-            });
+                return new BadRequestObjectResult(actionContext.ConstructErrorMessages());
+            };
+        });
 
-            return builder;
-        }
+        return builder;
+    }
 
-        public static CustomError ConstructErrorMessages(this ActionContext context)
+    public static CustomError ConstructErrorMessages(this ActionContext context)
+    {
+        var customError = new CustomError();
+
+        foreach (var keyModelStatePair in context.ModelState)
         {
-            var customError = new CustomError();
-
-            foreach (var keyModelStatePair in context.ModelState)
+            var key = keyModelStatePair.Key;
+            var errors = keyModelStatePair.Value.Errors;
+            if (errors != null && errors.Count > 0)
             {
-                var key = keyModelStatePair.Key;
-                var errors = keyModelStatePair.Value.Errors;
-                if (errors != null && errors.Count > 0)
+                var errorMessages = new List<string>();
+                for (var i = 0; i < errors.Count; i++)
                 {
-                    var errorMessages = new List<string>();
-                    for (var i = 0; i < errors.Count; i++)
-                    {
-                        errorMessages.Add(GetErrorMessage(errors[i]));
-                    }
-
-                    customError.Errors.Add(key, errorMessages);
+                    errorMessages.Add(GetErrorMessage(errors[i]));
                 }
-            }
-            return customError;
-        }
 
-        private static string GetErrorMessage(ModelError error)
-        {
-            return string.IsNullOrEmpty(error.ErrorMessage) ?
-                "Valor inválido." :
-                error.ErrorMessage;
+                customError.Errors.Add(key, errorMessages);
+            }
         }
+        return customError;
+    }
+
+    private static string GetErrorMessage(ModelError error)
+    {
+        return string.IsNullOrEmpty(error.ErrorMessage) ?
+            "Valor inválido." :
+            error.ErrorMessage;
     }
 }

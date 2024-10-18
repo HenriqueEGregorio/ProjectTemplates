@@ -1,8 +1,7 @@
-﻿namespace TemplateApi.Domain.Entities
+﻿namespace TemplateApi.Domain.Entities;
+
+public class ExampleEntity : DefaultEntity
 {
-    public class ExampleEntity : DefaultEntity
-    {
-        public required string Name { get; set; }
-        public int Age { get; set; }
-    }
+    public required string Name { get; set; }
+    public int Age { get; set; }
 }

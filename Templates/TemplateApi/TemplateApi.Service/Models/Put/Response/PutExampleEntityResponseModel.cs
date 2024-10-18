@@ -1,8 +1,7 @@
-﻿namespace TemplateApi.Service.Models.Put.Response
+﻿namespace TemplateApi.Service.Models.Put.Response;
+
+public class PutExampleEntityResponseModel
 {
-    public class PutExampleEntityResponseModel
-    {
-        public required string Name { get; set; }
-        public int Age { get; set; }
-    }
+    public required string Name { get; set; }
+    public int Age { get; set; }
 }

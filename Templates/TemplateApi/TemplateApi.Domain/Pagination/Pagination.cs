@@ -1,37 +1,36 @@
-﻿namespace TemplateApi.Domain.Pagination
+﻿namespace TemplateApi.Domain.Pagination;
+
+public class Pagination<T> : IPagination<T> where T : class
 {
-    public class Pagination<T> : IPagination<T> where T : class
+    public int TotalResults { get; private set; }
+    public int PageIndex { get; private set; }
+    public int TotalPages { get; private set; }
+    public int PageSize { get; private set; }
+    public bool HasPreviousPage
     {
-        public int TotalResults { get; private set; }
-        public int PageIndex { get; private set; }
-        public int TotalPages { get; private set; }
-        public int PageSize { get; private set; }
-        public bool HasPreviousPage
+        get
         {
-            get
-            {
-                return PageIndex > 1;
-            }
+            return PageIndex > 1;
         }
+    }
 
-        public bool HasNextPage
+    public bool HasNextPage
+    {
+        get
         {
-            get
-            {
-                return PageIndex < TotalPages;
-            }
+            return PageIndex < TotalPages;
         }
+    }
 
-        public List<T> Result { get; private set; } = new List<T>();
+    public List<T> Result { get; private set; } = new List<T>();
 
-        public Pagination(List<T> items, int count, int pageIndex = Constants.ApplicationDefaults.INITIAL_PAGE, int pageSize = Constants.ApplicationDefaults.MAX_RESULTS)
-        {
-            TotalResults = count;
-            PageIndex = pageIndex;
-            TotalPages = (int)Math.Ceiling(count / (decimal)pageSize);
-            PageSize = pageSize;
+    public Pagination(List<T> items, int count, int pageIndex = Constants.ApplicationDefaults.INITIAL_PAGE, int pageSize = Constants.ApplicationDefaults.MAX_RESULTS)
+    {
+        TotalResults = count;
+        PageIndex = pageIndex;
+        TotalPages = (int)Math.Ceiling(count / (decimal)pageSize);
+        PageSize = pageSize;
 
-            this.Result.AddRange(items);
-        }
+        this.Result.AddRange(items);
     }
 }

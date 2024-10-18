@@ -1,6 +1,5 @@
-﻿namespace TemplateApi.Domain.Filters
+﻿namespace TemplateApi.Domain.Filters;
+
+public class ExampleEntityFilter : DefaultFilter
 {
-    public class ExampleEntityFilter : DefaultFilter
-    {
-    }
 }
